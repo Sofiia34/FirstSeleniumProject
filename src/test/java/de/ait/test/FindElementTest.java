@@ -122,6 +122,56 @@ public class FindElementTest {
         WebElement logIN = driver.findElement(By.cssSelector(".navigation-link:nth-child(6)"));
         System.out.println(logIN.getText());
     }
+    @Test
+    public void findElementByXpath() {
+        //    //tag[@attribute='value']
+        //   //tag[1]
+        //  //tag[@attr='value1' and @attr='value2']
+        //  //tag[text()='Text']
+        //   //tag[contains(text(),'Partial text')]
+
+        driver.findElement(By.xpath("//h1"));
+        driver.findElement(By.xpath("//h2"));
+
+        driver.findElement(By.xpath("//input[@id='city']"));
+        driver.findElement(By.xpath("//input[@id='dates']"));
+
+        driver.findElement(By.xpath("//a[@class='telephone']"));
+        driver.findElement(By.xpath("//div[@class='input-container']"));
+
+        driver.findElement(By.xpath("//a[@href='/search']"));
+        driver.findElement(By.xpath("//label[@for='city']"));
+
+        driver.findElement(By.xpath("//*[starts-with(@class,'top')]"));
+
+        driver.findElement(By.xpath("//*[contains(@class,'cities')]"));
+
+        driver.findElement(By.xpath("//*[contains(.,'Our car was modern')]"));
+
+        driver.findElement(By.xpath("//span[.=' Latest feedback from our customers ']"));
+
+        driver.findElement(By.xpath("//a[@class='navigation-link' and @href='/search']"));
+
+        driver.findElement(By.xpath("//a[@class='logo']/img"));
+
+        driver.findElement(By.xpath("//div[@class='feedback-body']//span[@class='feedback-date']"));
+    }
+
+    @Test
+    public void findElementByXpathFamily() {
+
+        driver.findElement(By.xpath("//h1/parent::*"));
+        driver.findElement(By.xpath("//h1/parent::div"));
+        driver.findElement(By.xpath("//h1/.."));
+
+        driver.findElement(By.xpath("//h1/ancestor::*"));
+        driver.findElement(By.xpath("//h1/ancestor::div"));
+        driver.findElement(By.xpath("//h1/ancestor::div[1]"));
+
+        driver.findElement(By.xpath("//h1/following-sibling::h2"));
+
+        driver.findElement(By.xpath("//h2/preceding-sibling::h1"));
+    }
 
 }
 

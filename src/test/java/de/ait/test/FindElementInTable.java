@@ -38,7 +38,7 @@ public class FindElementInTable {
         }
         System.out.println("***********************************");
 
-        for (WebElement element: rows) {
+        for (WebElement element : rows) {
             System.out.println(element.getText());
         }
         System.out.println("********************************");
@@ -54,7 +54,27 @@ public class FindElementInTable {
         WebElement last = driver.findElement(By.cssSelector("#customers tr:nth-child(2) td:last-child"));
         System.out.println(last.getText());
     }
-}
+
+
+        @Test
+        public void tableXpath() {
+
+            List<WebElement> rows = driver.findElements(By.xpath("//tr"));
+            System.out.println(rows.size());
+
+            WebElement germany = driver.findElement(By.xpath("//*[@id='customers']//tr[2]"));
+            System.out.println(germany.getText());
+            System.out.println("****************************************");
+
+            WebElement maria = driver.findElement(By.xpath("//*[@id='customers']//tr[2]//td[2]"));
+            System.out.println(maria.getText());
+            System.out.println("*****************************");
+
+            WebElement last = driver.findElement(By.xpath("//*[@id='customers']//tr[2]//td[last()]"));
+            System.out.println(last.getText());
+        }
+    }
+
 
 
 
