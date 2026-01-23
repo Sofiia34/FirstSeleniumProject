@@ -2,7 +2,7 @@ package de.demowebshop;
 
 
 
-import de.TestBase;
+
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -19,7 +19,8 @@ public class CreateAccountTests extends TestBase {
         type(By.id("FirstName"), "Naumets");
         type(By.id("LastName"), "Sofiia");
 
-        type(By.id("Email"), "snaumets28@gmail.com");
+        type(By.id("Email"),
+                "snaumets28+" + System.currentTimeMillis() + "@gmail.com");
 
         type(By.id("Password"), "Sofa1412best!");
         type(By.id("ConfirmPassword"), "Sofa1412best!");
@@ -27,10 +28,19 @@ public class CreateAccountTests extends TestBase {
         click(By.id("register-button"));
 
         Assert.assertTrue(
-                isElementPresent(By.cssSelector(".result")),
+                isElementPresent(By.linkText("Log out")),
                 "Registration was not successful"
         );
     }
 }
+
+
+
+
+
+
+
+
+
 
 
