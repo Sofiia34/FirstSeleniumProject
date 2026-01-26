@@ -11,17 +11,14 @@ public class CreateAccountTests extends TestBase {
         openRegistrationForm();
         fillRegistrationFormFemale("Naumets", "Sofiia", generateUniqueEmail(), "Sofa1412best!");
         submitRegistration();
-
         Assert.assertTrue(isLogoutPresent(), "Registration was not successful");
     }
-
-    // ---------- helpers ----------
 
     private void openRegistrationForm() {
         click(By.linkText("Register"));
     }
 
-    private void fillRegistrationFormFemale(String firstName, String lastName, String email, String password) {
+    private void fillRegistrationFormFemale(String lastName, String firstName, String email, String password) {
         click(By.id("gender-female"));
         type(By.id("FirstName"), firstName);
         type(By.id("LastName"), lastName);

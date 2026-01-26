@@ -22,9 +22,9 @@ public class TestBase {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        driver.get("https://demowebshop.tricentis.com/");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.get("https://demowebshop.tricentis.com/");
     }
 
     @AfterMethod(alwaysRun = true)
@@ -43,9 +43,10 @@ public class TestBase {
     }
 
     public void type(By locator, String text) {
-        click(locator);
-        driver.findElement(locator).clear();
-        driver.findElement(locator).sendKeys(text);
+        WebElement el = driver.findElement(locator);
+        el.click();
+        el.clear();
+        el.sendKeys(text);
     }
 
     public WebDriverWait wait(int seconds) {
@@ -60,7 +61,6 @@ public class TestBase {
         wait(seconds).until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
-
     public void login(String email, String password) {
         click(By.linkText("Log in"));
         type(By.id("Email"), email);
@@ -68,7 +68,6 @@ public class TestBase {
         click(By.cssSelector("input.login-button"));
         Assert.assertTrue(isElementPresent(By.linkText("Log out")), "Login failed");
     }
-
 
     public void closeBarIfPresent() {
         By bar = By.id("bar-notification");
@@ -82,23 +81,28 @@ public class TestBase {
         }
     }
 
-
     public void clearCartIfNotEmpty() {
         driver.get("https://demowebshop.tricentis.com/cart");
 
+        By cartRows = By.cssSelector("tr.cart-item-row");
+        By removeCheckbox = By.name("removefromcart");
+        By updateCartBtn = By.name("updatecart");
 
-        if (isElementPresent(By.name("removefromcart"))) {
-            List<WebElement> removeCheckboxes = driver.findElements(By.name("removefromcart"));
-            for (WebElement cb : removeCheckboxes) {
-                if (!cb.isSelected()) {
-                    cb.click();
-                }
-            }
-            click(By.name("updatecart"));
-
-
-            wait(10).until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".cart-item-row")));
+        if (driver.findElements(cartRows).isEmpty()) {
+            return;
         }
+
+        List<WebElement> removes = driver.findElements(removeCheckbox);
+        for (WebElement cb : removes) {
+            if (!cb.isSelected()) {
+                cb.click();
+            }
+        }
+
+        click(updateCartBtn);
+
+        wait(10).until(ExpectedConditions.numberOfElementsToBe(cartRows, 0));
     }
 }
+
 
